@@ -160,11 +160,7 @@ def mbf_clustering(X, k, iters=30):
     C = X[np.random.choice(len(X), k, replace=False)]
 
     for _ in range(iters):
-        labels = assign_clusters(X, C)
-        for j in range(k):
-            pts = X[labels == j]
-            if len(pts) > 0:
-                C[j] = C[j] + 0.4 * (pts.mean(axis=0) - C[j])
+        C = mbf_update(X,C, alpha = 0.4)
 
     labels = assign_clusters(X, C)
 
