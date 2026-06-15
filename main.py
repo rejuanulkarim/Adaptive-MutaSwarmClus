@@ -37,8 +37,10 @@ def inter_cluster_distance(C):
     return (2 / (k * (k - 1))) * np.sum(D[np.triu_indices(k, 1)])
 
 def distance_index(X, labels, C):
-    return quantization_error(X, labels, C)
-
+    qe = quantization_error(X, labels, C)
+    icd = intra_cluster_distance(X, labels, C)
+    inter = inter_cluster_distance(C)
+    return (qe * icd) / inter
 
 
 # -------------------- ACO --------------------
